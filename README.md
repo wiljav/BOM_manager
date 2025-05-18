@@ -23,7 +23,7 @@ A lightweight, local-first Bill of Materials and engineering data manager built 
 
 ---
 
-## 🐳 Running with Docker (Recommended)
+## 🐳 Running with Docker
 
 ### Prerequisites
 
