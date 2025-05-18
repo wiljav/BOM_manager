@@ -13,10 +13,5 @@ def show_materials_tab(conn):
     st.write("Please ensure that the data is accurate to maintain project integrity.")
     st.write("You can view the uploaded materials in the table below.")
 
-    # Reuse your shared CSV upload function
     from utils import process_csv_upload
     process_csv_upload(conn, "Materials")
-
-
-    # materials_data = pd.read_csv("materials_data.csv")
-    # st.dataframe(materials_data)

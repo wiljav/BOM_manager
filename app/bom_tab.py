@@ -13,10 +13,6 @@ def show_bom_tab(conn):
     st.write("You can view the uploaded BOM in the table below.")
     st.write("Please ensure that the data is accurate to maintain project integrity.")
     
-    # Reuse your shared CSV upload function
+    
     from utils import process_csv_upload
     process_csv_upload(conn, "BOM")
-
-
-    # bom_data = pd.read_csv("bom_data.csv")
-    # st.dataframe(bom_data)

@@ -13,10 +13,5 @@ def show_lab_samples_tab(conn):
     st.write("Please ensure that the data is accurate to maintain project integrity.")
     st.write("You can view the uploaded lab samples in the table below.")
 
-    # Reuse your shared CSV upload function
     from utils import process_csv_upload
     process_csv_upload(conn, "Lab Samples List")
-
-
-    # lab_samples_data = pd.read_csv("lab_samples_data.csv")
-    # st.dataframe(lab_samples_data)

@@ -1,13 +1,13 @@
 # Dockerfile
 FROM python:3-slim
 
-# Set working directory
+
 WORKDIR /app
 
-# Optional: Add labels or metadata
+
 LABEL maintainer="William <will.jawad@gmail.com>"
 
-# Optional: Define environment variables
+
 ENV DUCKDB_PATH=/app/data/bom.duckdb
 ENV STREAMLIT_SERVER_PORT=8501
 

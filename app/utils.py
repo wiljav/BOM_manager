@@ -62,7 +62,6 @@ def process_csv_upload(conn, section_name):
             st.success(f"✅ Created table `{table_name}` and inserted {len(df)} rows.")
             st.dataframe(df.head(), use_container_width=True)
 
-            # Generate NEW unique suffix just for the button
             button_suffix = str(uuid.uuid4())
 
             # Download Excel
