@@ -24,7 +24,39 @@ A lightweight, local-first Bill of Materials and engineering data manager built 
 
 ## Architecture
 
+:::mermaid
 
+%%{init:{'theme': 'base', 'flowchart':{'nodeSpacing': 200}}}%%
+
+graph TD
+  subgraph Host
+    A[Local Filesystem]
+    A --> V1[./app -> /app/app]
+    A --> V2[./data -> /app/data]
+  end
+
+  subgraph Docker Container: bom-app
+    B1[Python\:3-slim]
+    B2[Streamlit App]
+    B3[DuckDB: bom.duckdb]
+    B4[start\_streamlit\.sh]
+    B5[Environment Variables]
+
+    B1 --> B2
+    B2 --> B3
+    B2 --> B4
+    B2 --> B5
+  end
+
+  subgraph User
+    U[Browser]
+  end
+  
+  U --> | localhost:8501 | B2
+  U --> |  | A[Host]
+
+
+:::
 
 
 ---
