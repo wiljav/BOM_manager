@@ -6,6 +6,8 @@ import pandas as pd
 import streamlit as st
 import hashlib
 import uuid
+from io import BytesIO
+
 
 def process_csv_upload(conn, section_name):
     unique_table_suffix = str(uuid.uuid4())
@@ -62,21 +64,54 @@ def process_csv_upload(conn, section_name):
             st.success(f"✅ Created table `{table_name}` and inserted {len(df)} rows.")
             st.dataframe(df.head(), use_container_width=True)
 
-            button_suffix = str(uuid.uuid4())
+            # button_suffix = str(uuid.uuid4())
 
             # Download Excel
-            if st.button(f"📥 Export '{table_name}' to Excel", key=f"export_{table_name}_{button_suffix}"):
-                excel_file = f"{table_name}.xlsx"
-                df.to_excel(excel_file, index=False, engine='openpyxl')
-                with open(excel_file, "rb") as f:
-                    st.download_button(
-                        label="⬇️ Download Excel File",
-                        data=f,
-                        file_name=excel_file,
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        key=f"download_{table_name}_{button_suffix}"
-                    )
-                st.success(f"✅ Exported '{table_name}' to Excel successfully.")
+            st.subheader("Export to Excel")
+            st.write("You can export the uploaded data to an Excel file.")
+            if not df.empty:
+                excel_buffer = BytesIO()
+                df.to_excel(excel_buffer, index=False, engine="openpyxl")
+                excel_buffer.seek(0)
 
+                st.download_button(
+                    label="⬇️ Download Excel File",
+                    data=excel_buffer,
+                    file_name=f"{table_name}.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    key=f"download_{table_name}"
+                )
+                st.write("The Excel file has been created. Click the button to download it.")
+                st.success(f"✅ Exported '{table_name}' to Excel successfully.")
+            else:
+                st.warning("⚠️ Dataframe is empty. Upload and process a valid CSV.")
+        # except pd.errors.ParserError:
+            # st.error("❌ Error: The uploaded file is not a valid CSV. Please check the format.")
+        # except duckdb.DuckDBException as e:
+            # st.error(f"❌ Error: {e}")
+        # except FileNotFoundError:
+            # st.error("❌ Error: The file was not found. Please check the file path.")
+        # except ValueError as e:
+            # st.error(f"❌ Error: {e}")
+        # except TypeError as e:
+            # st.error(f"❌ Error: {e}")
+        # except KeyError as e:
+            # st.error(f"❌ Error: Missing column in the CSV file. Please check the headers.")
+        # except pd.errors.EmptyDataError:
+            # st.error("❌ Error: The uploaded CSV file is empty. Please upload a valid file.")
+            # if df.empty:
+                # st.error("❌ Error: The uploaded CSV file is empty.")
+        # except pd.errors.DtypeWarning:
+            # st.warning("⚠️ Warning: Some columns have mixed data types. Please check the data types.")
+        # except duckdb.InvalidInputError as e:
+            # st.error(f"❌ Error: Invalid input for DuckDB. Please check the data types.")
+        # except duckdb.DatabaseError as e:
+            # st.error(f"❌ Error: Database error occurred. Please check the database connection.")
+        # except duckdb.ProgrammingError as e:
+            # st.error(f"❌ Error: Programming error occurred. Please check the SQL syntax.")
+        # except duckdb.DuckDBPyException as e:
+            # st.error(f"❌ Error: DuckDB error occurred. Please check the SQL syntax.")
+        # except duckdb.DuckDBException as e:
+            # st.error(f"❌ Error: DuckDB error occurred. Please check the SQL syntax.")
         except Exception as e:
             st.error(f"❌ Error processing CSV: {e}")

@@ -17,9 +17,43 @@ A lightweight, local-first Bill of Materials and engineering data manager built 
 
 - [Python](https://www.python.org/ )
 - [DuckDB](https://duckdb.org/ ) – Fast in-process OLAP database
-- [Typer](https://typer.tiangolo.com/ ) – For CLI interface
 - [Pandas](https://pandas.pydata.org/ ) – Data manipulation
 - [Openpyxl](https://openpyxl.readthedocs.io/ ) – Excel export support
+
+---
+
+## Architecture
+
+
+
+
+---
+
+## 🌱 Directory tree:
+
+```sh
+.
+├── app
+│   ├── bom_tab.py
+│   ├── construction_tab.py
+│   ├── database.py
+│   ├── lab_samples_tab.py
+│   ├── main.py
+│   ├── manual_entry_tab.py
+│   ├── materials_tab.py
+│   └── utils.py
+├── CSV_data
+│   ├── bom.csv
+│   └── project_materials.csv
+├── data
+│   └── bom.duckdb
+├── docker-compose.yml
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── requirements.txt
+└── start_streamlit.sh
+```
 
 ---
 

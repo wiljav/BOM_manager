@@ -9,13 +9,14 @@ def get_db_connection():
 
     conn.execute("CREATE SEQUENCE IF NOT EXISTS parts_id_seq START WITH 1 INCREMENT BY 1")
 
+
     # BOM table
     conn.execute("""
     CREATE TABLE IF NOT EXISTS parts (
                  id INTEGER PRIMARY KEY DEFAULT nextval('parts_id_seq'),
                  name VARCHAR NOT NULL,
                  quantity INTEGER NOT NULL,
-                 unit_pcs VARCHAR DEFAULT 'pcs',
+                 unit_pcs INTEGER DEFAULT 0,
                  material VARCHAR,
                  mass_value_eur FLOAT,
                  mass_unit_kg VARCHAR,

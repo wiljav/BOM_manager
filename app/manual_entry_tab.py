@@ -12,13 +12,24 @@ def show_manual_entry_tab(conn):
         col1, col2 = st.columns(2)
 
         with col1:
+            name = st.text_input("Name")
+            description = st.text_area("Description", height=100)
+            
+            st.markdown("### Material and Quantity")
+            st.markdown("Fill in the material and quantity details below.")
             material = st.text_input("Material")
             unit = st.text_input("Unit", value="pcs")
+
+            st.markdown("### Note: The unit for quantity is set to 'pcs' by default.")
             quantity = st.number_input("Quantity", min_value=1, value=1)
 
         with col2:
+            st.markdown("### Mass Value and Unit")
+            st.markdown("Fill in the mass value and unit below.")
             mass_value = st.number_input("Mass Value", value=0.0, step=0.1)
             mass_unit = st.text_input("Mass Unit", value="kg")
+            st.markdown("### Project Extra")
+            st.markdown("Fill in the project extra value below.")
             project_extra = st.number_input("Project Extra", value=0.0, step=0.1)
 
         submitted = st.form_submit_button("➕ Add to Database")
@@ -28,9 +39,9 @@ def show_manual_entry_tab(conn):
                 cur = conn.cursor()
                 cur.execute("""
                     INSERT INTO parts (
-                        Material, unit_pcs, Quantity, mass_value_eur, mass_unit_kg, project_extra_eur
-                    ) VALUES (?, ?, ?, ?, ?, ?)
-                """, (material, unit, quantity, mass_value, mass_unit, project_extra))
+                        name, quantity, unit_pcs, material, mass_value_eur, mass_unit_kg, project_extra_eur, description
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (name, quantity, unit, material, mass_value, mass_unit, project_extra, description))
                 conn.commit()
                 st.success("✅ Data successfully added to database!")
             except Exception as e:
