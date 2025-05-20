@@ -24,7 +24,7 @@ A lightweight, local-first Bill of Materials and engineering data manager built 
 
 ## Architecture
 
-:::mermaid
+```mermaid
 
 %%{init:{'theme': 'base', 'flowchart':{'nodeSpacing': 200}}}%%
 
@@ -56,7 +56,7 @@ graph TD
   U --> |  | A[Host]
 
 
-:::
+```
 
 
 ---
